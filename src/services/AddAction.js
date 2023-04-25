@@ -44,6 +44,7 @@ const AddAction = () => {
     }
     var bodyFormData = new FormData();
     bodyFormData.append('name', action);
+    // alert(cat)
     bodyFormData.append('nextTaskId', cat)
 
 
@@ -88,7 +89,7 @@ const AddAction = () => {
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Name</th>
-                            <th scope="col">nextTaskId</th>
+                            <th scope="col">Next Task ID</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -97,7 +98,7 @@ const AddAction = () => {
                                 <tr>
                                     <th scope="row" key={index}>{index + 1}</th>
                                     <td>{allacts.name}</td>
-                                    <td>{allacts.nextTask.taskId}</td>
+                                    <td>{allacts.nextTask.description}</td>
                                 </tr>
                             )
                             )
@@ -128,9 +129,9 @@ const AddAction = () => {
                                 onChange={(e) => setSelectedCategory(e.target.value)}
                                 className="product-dropdown"
                                 name="product-dropdown"
-                            >
+                            ><option disabled selected value> -- Select an Option -- </option>
                                 {tasks.map((task) => (
-                                    <option value={task.taskId}>{task.taskId}</option>
+                                    <option value={task.taskId}>{task.description}</option>
                                 ))}
                             </select>
                         </div>

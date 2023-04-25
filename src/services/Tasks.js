@@ -14,6 +14,8 @@ export default function Tasks() {
     const loadUser=async()=>{
         const result=await axios.get(`http://localhost:9191/task/fetchTaskList/${id}`)
         setTask(result.data)
+
+        
     }
 
 
@@ -30,7 +32,7 @@ export default function Tasks() {
                             <th scope="col">Description</th>
                             <th scope="col">UserByID</th>
                             <th scope="col">Role</th>
-                            {/* <th scope="col">Name</th> */}
+                            {/* <th scope="col">Position</th> */}
                             <th scope="col">Actions</th>
                         </tr>
                     </thead>
@@ -44,11 +46,12 @@ export default function Tasks() {
                                     <></>
                                     <td>{task.userAuthorized && task.userAuthorized.userId}</td>
                                     <td>{task.role}</td>
-                                    {/* <td>{task.workflow.name}</td> */}
+                                    {/* <td>{task.position}</td> */}
                                     <td>
-                                        <Link className="btn btn-primary mx-2" to={`/addaction/${id}/${task.taskId}`}>
+                                    {task.position == 'final'? <p>No action needed as this is final task</p> : <Link className="btn btn-primary mx-2" to={`/addaction/${id}/${task.taskId}`}>
                                             Action
-                                        </Link>
+                                        </Link> }
+                                        
                                     </td>
                                 </tr>
                             )

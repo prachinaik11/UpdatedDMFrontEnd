@@ -10,6 +10,7 @@ export default function Tasks() {
     const [actions,setAction]=useState([])
     const [act,setSelectedCategory]=useState("")
     const [comment,setComment]=useState([])
+    const [taskId,setTaskId]=useState([])
 
     var bodyFormData = new FormData();
     const{id}=useParams();
@@ -21,8 +22,9 @@ export default function Tasks() {
     bodyFormData.append('actionId', act);
     bodyFormData.append('comments', comment);
     console.log(act)
-    console.log("comment")
-    console.log(tasks)
+    // alert(act)
+    // console.log("comment")
+    // console.log(tasks)
 
     const onSubmit=async(e)=>{
         axios({
@@ -46,9 +48,14 @@ export default function Tasks() {
     const loadUser=async()=>{
         const result=await axios.get(`http://localhost:9191/taskInstance/fetchTaskInstances/${id}`)
         setTask(result.data);
+        
+        console.log(result.data[0].task.taskId)
+        setTaskId(result.data[0].task.taskId)
 
-        const resultact =await axios.get(`http://localhost:9191/action/viewActions/${id}`)
+
+        const resultact =await axios.get(`http://localhost:9191/action/viewActions/`+result.data[0].task.taskId)
         setAction(resultact.data);
+        console.log("prachi ")
         console.log(resultact.data)
 
     }
@@ -107,8 +114,9 @@ export default function Tasks() {
                                                     onClick={(e) => setSelectedCategory(e.target.value)}
                                                     className="product-dropdown"
                                                     >
+                                                        <option disabled selected value> -- Select an Option -- </option>
                                                     {actions.map((action) => (
-                                                        <option value={action.actionId}>{action.actionId}</option>
+                                                        <option value={action.actionId}>{action.name}</option>
                                                     ))}
                                                 </select>
                                             </div>

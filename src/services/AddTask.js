@@ -27,7 +27,10 @@ export default function AddUser() {
         var url = (`http://localhost:9191/task/addTaskUsingUser/${id}`)
     }
 
-    
+    const test=async(e)=>{
+        alert("yes!")
+    }
+
     const onSubmit=async(e)=>{
         axios({
             method: "post",
@@ -65,36 +68,32 @@ export default function AddUser() {
                             required
                         />
                     </div>
+                    
                     <div className='mb-3'>
                         <label htmlFor='Name' className='form-label'>
-                        Select 
+                        Select Task for Any or All :
                         </label>
-                        <div><input type='radio' name="role" value="ID" on onChange={e=>setRole(e.target.value)}/> UseByID  </div>
-                        <div><input type='radio' name="role" value="Role" on onChange={e=>setRole(e.target.value)}/> UseByRole</div>
+                        <div><input type='radio' name="anyAll" value="any" on onChange={(e)=>{setanyAll(false);document.getElementById('role').disabled = false;document.getElementById('role1').disabled = false}}/> Any  </div>
+                        <div><input type='radio' name="anyAll" value="all" on onChange={(e)=>{alert("If you choose 'All', you can't choose 'task used by'.");setanyAll(true);document.getElementById('role').disabled = true;document.getElementById('role1').disabled = true}}/> 
+                        All</div>
                     </div>
+
                     <div className='mb-3'>
-                        <label htmlFor='Name' className='form-label'>
-                        Select Task for Any or All 
-                        </label>
-                        <div><input type='radio' name="anyAll" value="any" on onChange={e=>setanyAll(false)}/> Any  </div>
-                        <div><input type='radio' name="anyAll" value="all" on onChange={e=>setanyAll(true)}/> All</div>
-                    </div>
-                    <div className='mb-3'>
-                        <label htmlFor='Name' className='form-label'>
-                        First Task
-                        </label>
-                        <div><input type='radio' name="position" value="position" on onChange={e=>setPosition("first")}/> True  </div>
-                        <div><input type='radio' name="position" value="position" on onChange={e=>setPosition("")}/> False</div>
+                    <label htmlFor='Name' className='form-label'>
+                        Select if it is a First/Final/Middle task: 
+                    </label>
+                        <div><input type='radio' name="position" value="position" on onChange={(e)=>{setPosition("first");document.getElementById('role').disabled = false;document.getElementById('role1').checked = false}}/> First task  </div>
+                        <div><input type='radio' name="position" value="position" on onChange={(e)=>{setPosition("final");document.getElementById('role').disabled = true;document.getElementById('role1').checked = true;setRole("Role")}}/> Final task  </div>
+                        <div><input type='radio' name="position" value="position" on onChange={(e)=>{setPosition("");document.getElementById('role').disabled = false; document.getElementById('role1').checked = false}}/> Middle task</div>
                     </div>
 
                     <div className='mb-3'>
                         <label htmlFor='Name' className='form-label'>
-                        Final Task
+                        Select 'Task used by': 
                         </label>
-                        <div><input type='radio' name="position" value="position" on onChange={e=>setPosition("final")}/> True  </div>
-                        <div><input type='radio' name="position" value="position" on onChange={e=>setPosition("")}/> False</div>
+                        <div><input type='radio' name="role" id="role" value="ID" on onChange={e=>setRole(e.target.value)}/> Used By User ID  </div>
+                        <div><input type='radio' name="role" id="role1" value="Role" on onChange={e=>setRole(e.target.value)}/> Use By Role</div>
                     </div>
-                    
                     Enter {role}
                     <div className='mb-3'>
                         <label htmlFor='Name' className='form-label'> 
